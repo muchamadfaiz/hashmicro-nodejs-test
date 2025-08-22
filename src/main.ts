@@ -6,7 +6,7 @@ import {
   ValidationPipe,
   VersioningType,
 } from '@nestjs/common';
-import { setupSwagger } from './swagger';
+import { setupSwagger } from './common/swagger';
 import { Env } from './config/env';
 
 async function bootstrap() {

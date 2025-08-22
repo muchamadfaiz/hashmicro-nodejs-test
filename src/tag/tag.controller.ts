@@ -12,54 +12,76 @@ import { TagService } from './tag.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateTagDto } from './dto/tag-create.dto';
 import { TagFilterDto } from './dto/tag-filter.dto';
+import { RoutePath } from '@/common/decorator/route-path.decorator';
+import {
+  CreateOneTagDecorators,
+  DeleteTagDecorators,
+  GetAllTagDecorators,
+  GetOneTagDecorators,
+  UpdateOneTagDecorators,
+} from './decorator/tag.decorator';
 
-@ApiTags('tags')
+@ApiTags('Tag')
 @Controller({ path: 'tags', version: '1' })
 export class TagController {
   constructor(private readonly tagService: TagService) {}
 
   @Get()
-  async findAll(@Query() query: TagFilterDto) {
+  @GetAllTagDecorators()
+  async findAll(@Query() query: TagFilterDto, @RoutePath() routePath: string) {
     const result = await this.tagService.findAll(query);
     return {
-      data: result,
-      meta: {},
+      status: true,
+      message: `success return all ${routePath}`,
+      ...result,
     };
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number) {
+  @GetOneTagDecorators()
+  async findOne(@Param('id') id: number, @RoutePath() routePath: string) {
     const result = await this.tagService.findOne(id);
     return {
-      data: result,
-      meta: {},
+      status: true,
+      message: `success return one ${routePath}`,
+      ...result,
     };
   }
 
   @Post()
-  async create(@Body() createTagDto: CreateTagDto) {
-    const result = await this.tagService.create(createTagDto);
+  @CreateOneTagDecorators()
+  async create(
+    @Body() createTagDto: CreateTagDto,
+    @RoutePath() routePath: string,
+  ) {
+    await this.tagService.create(createTagDto);
     return {
-      data: result,
-      meta: {},
+      status: true,
+      message: `success create one tag ${routePath}`,
     };
   }
 
   @Patch(':id')
-  async update(@Param('id') id: number, @Body() updateTagDto: CreateTagDto) {
-    const result = await this.tagService.update(id, updateTagDto);
+  @UpdateOneTagDecorators()
+  async update(
+    @Param('id') id: number,
+    @Body() updateTagDto: CreateTagDto,
+    @RoutePath() routePath: string,
+  ) {
+    await this.tagService.update(id, updateTagDto);
     return {
-      data: result,
-      meta: {},
+      status: true,
+      message: `success update one ${routePath}`,
     };
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: number) {
-    const result = await this.tagService.delete(id);
+  @DeleteTagDecorators()
+  async delete(@Param('id') id: number, @RoutePath() routePath: string) {
+    await this.tagService.delete(id);
     return {
-      data: result,
-      meta: {},
+      status: true,
+      message: `success delete one ${routePath}`,
     };
   }
 }
