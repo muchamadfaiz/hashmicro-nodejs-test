@@ -1,16 +1,11 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "src/index.ts",
-      "use": "@vercel/node",
-      "config": { "includeFiles": ["src/**"] }
+  "functions": {
+    "api/index.ts": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 10
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/index.ts"
-    }
-  ]
+  },
+  "routes": [{ "src": "/(.*)", "dest": "api/index.ts" }],
+  "regions": ["sin1"]
 }
