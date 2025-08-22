@@ -42,6 +42,10 @@ async function bootstrap() {
   const docPath = `${apiPath}/docs`;
   setupSwagger(app, docPath);
 
+  app.getHttpAdapter().get('/', (req, res) => {
+    res.redirect(`${apiPath}/health`);
+  });
+
   await app.listen(port, () => {
     logger.log(`Host: ${baseUrl}:${port}`);
     logger.log(`Running in ${Env.app.stage} mode`);

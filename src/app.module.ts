@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from './config/ormconfig';
 import { ConfigModule } from '@nestjs/config';
 import { PaginationModule } from './common/pagination/pagination.module';
+import { HealthController } from './common/health/health.controller';
 
 @Module({
   imports: [
@@ -24,6 +25,6 @@ import { PaginationModule } from './common/pagination/pagination.module';
     }),
     PaginationModule,
   ],
-  controllers: [],
+  controllers: [HealthController],
 })
 export class AppModule {}
