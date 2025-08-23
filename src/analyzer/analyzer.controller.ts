@@ -1,0 +1,17 @@
+import { Body, Controller, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { AnalyzerService } from './analyzer.service';
+import { MatchDto } from './dto/match.dto';
+
+@ApiTags('Analyzer')
+@Controller('analyzer')
+export class AnalyzerController {
+  constructor(private readonly analyzerService: AnalyzerService) {}
+  @Post('checkMatch')
+  checkMatch(@Body() dto: MatchDto) {
+    const result = this.analyzerService.checkMatch(dto);
+    return {
+      data: result,
+    };
+  }
+}
