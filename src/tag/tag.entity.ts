@@ -15,6 +15,7 @@ export class Tag {
   @Column({
     type: 'varchar',
     nullable: false,
+    unique: true,
   })
   name: string;
 

@@ -7,6 +7,9 @@ import { config } from './config/ormconfig';
 import { ConfigModule } from '@nestjs/config';
 import { PaginationModule } from './common/pagination/pagination.module';
 import { HealthController } from './common/health/health.controller';
+import { AuthModule } from './admin/auth/auth.module';
+import { UserModule } from './admin/user/user.module';
+import { AnalyzerModule } from './analyzer/analyzer.module';
 
 @Module({
   imports: [
@@ -14,16 +17,16 @@ import { HealthController } from './common/health/health.controller';
       isGlobal: true,
       envFilePath: '.env',
     }),
-    TagModule,
     TypeOrmModule.forRootAsync({
       imports: [],
       inject: [],
-      useFactory: () => ({
-        ...config,
-        autoLoadEntities: true,
-      }),
+      useFactory: () => config,
     }),
+    AuthModule,
+    UserModule,
+    TagModule,
     PaginationModule,
+    AnalyzerModule,
   ],
   controllers: [HealthController],
 })

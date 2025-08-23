@@ -1,6 +1,7 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {
+  ClassSerializerInterceptor,
   INestApplication,
   Logger,
   ValidationPipe,
@@ -25,6 +26,8 @@ async function bootstrap() {
       },
     }),
   );
+
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   const port = Env.app.port || 3001;
   const baseUrl = Env.domain.backend;
