@@ -20,6 +20,10 @@ export const SWAGGER_CONFIG: SwaggerConfig = {
     - Article → CRUD artikel (admin untuk create/update/delete, publik untuk list)
     - Analyzer → hitung persentase kemiripan karakter antar string
 
+    👤 **Credentials:**
+    - Admin → \`john@gmail.com\` / \`secret@134\`
+    - Author → \`abigail@gmail.com\` / \`secret1234\`
+    - User → \`lukmansuaib@gmail.com\` / \`frodi1234\`
   `,
   version: '1.0',
   servers: [
