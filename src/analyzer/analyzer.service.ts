@@ -8,17 +8,20 @@ export class AnalyzerService {
     const lengthInput1 = dto.input1.length;
 
     let matchedCount = 0;
+    const matchedChars: string[] = [];
 
     for (const char of input1) {
       if (input2.includes(char)) {
         matchedCount++;
+        matchedChars.push(char);
       }
     }
 
     const percentageMatchChar = (matchedCount / lengthInput1) * 100;
 
     return {
-      percentageMatchChar,
+      percentageMatchChar: parseFloat(percentageMatchChar.toFixed(2)),
+      matchedChars,
       matchedCount,
       lengthInput1,
     };

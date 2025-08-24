@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -11,6 +12,7 @@ import {
 import { Profile } from '../profile/profile.entity';
 import { Exclude } from 'class-transformer';
 import { Role } from '../role/role.entity';
+import { Article } from '@/blog/article/article.entity';
 
 @Entity({ name: 'user' })
 export class User {
@@ -81,4 +83,7 @@ export class User {
   @ManyToOne(() => Role, (role) => role.users, { eager: true })
   @JoinColumn({ name: 'roleId' })
   role: Role;
+
+  @OneToMany(() => Article, (article) => article.author)
+  articles: Article[];
 }

@@ -1,5 +1,6 @@
 import { applyDecorators, HttpCode, HttpStatus } from '@nestjs/common';
 import {
+  ApiBearerAuth,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
@@ -23,7 +24,7 @@ export function GetOneTagDecorators() {
 
 export function CreateOneTagDecorators() {
   return applyDecorators(
-    // @Roles(UserRole.ADMIN),
+    ApiBearerAuth(),
     HttpCode(HttpStatus.CREATED),
     ApiOperation({ summary: 'Create one Tag' }),
     ApiOkResponse({ description: 'Success get one Tag' }),
@@ -32,7 +33,7 @@ export function CreateOneTagDecorators() {
 
 export function UpdateOneTagDecorators() {
   return applyDecorators(
-    // Roles(UserRole.ADMIN),
+    ApiBearerAuth(),
     HttpCode(HttpStatus.OK),
     ApiOperation({ summary: 'Update one Tag' }),
     ApiOkResponse({ description: 'Success update one Tag' }),
@@ -41,18 +42,9 @@ export function UpdateOneTagDecorators() {
 
 export function DeleteTagDecorators() {
   return applyDecorators(
+    ApiBearerAuth(),
     HttpCode(HttpStatus.NO_CONTENT),
     ApiOperation({ summary: 'Delete one Tag' }),
     ApiOkResponse({ description: 'Success delete one Tag with no return' }),
-  );
-}
-
-export function DeleteManyTagDecorators() {
-  return applyDecorators(
-    HttpCode(HttpStatus.OK),
-    ApiOperation({ summary: 'Delete many data Tag' }),
-    ApiOkResponse({
-      description: 'Success delete many data Tag with no return',
-    }),
   );
 }

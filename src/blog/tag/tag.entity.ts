@@ -3,9 +3,11 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Article } from '../article/article.entity';
 
 @Entity({ name: 'tag' })
 export class Tag {
@@ -33,4 +35,7 @@ export class Tag {
     type: 'timestamp',
   })
   deletedAt: Date;
+
+  @ManyToMany(() => Article, (article) => article.tags)
+  articles: Article[];
 }
