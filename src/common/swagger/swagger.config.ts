@@ -1,3 +1,4 @@
+import { Env } from '@/config/env';
 import { SwaggerConfig } from './swagger.interface';
 
 export const SWAGGER_CONFIG: SwaggerConfig = {
@@ -5,6 +6,6 @@ export const SWAGGER_CONFIG: SwaggerConfig = {
   description: 'API for Hashmicro App Test',
   version: '1.0',
   servers: [
-    { url: 'http://localhost:3001', description: 'Development Server' },
+    { url: Env.domain.backend + ':' + Env.app.port, description: 'Backend' },
   ],
 };
