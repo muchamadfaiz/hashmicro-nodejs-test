@@ -15,13 +15,15 @@ export class RolesGuard implements CanActivate {
       context.getHandler(),
     );
 
+    console.log('📌 Required roles from @Roles():', requiredRoles);
+
     if (!requiredRoles || requiredRoles.length === 0) {
       return true;
     }
     const request = context.switchToHttp().getRequest();
     const user = request.user;
 
-    console.log(user, user.role.id);
+    console.log('🙋‍♂️ User from JWT:', user);
 
     if (!user || !user.role.id) {
       throw new ForbiddenException('Access Denied, user role is undefined.');

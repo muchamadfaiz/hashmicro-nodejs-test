@@ -47,7 +47,7 @@ export class UserController {
 
   @Patch(':id')
   @UpdateOneUserDecorators()
-  update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
+  update(@Param('id') id: number, @Body() updateUserDto: CreateUserDto) {
     return this.userService.updateOne(id, updateUserDto);
   }
 

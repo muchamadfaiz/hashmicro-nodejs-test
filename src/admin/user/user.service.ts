@@ -69,7 +69,7 @@ export class UserService {
     return await this.userRepo.save(newUser);
   }
 
-  async updateOne(id: number, updateUserDto: UpdateUserDto) {
+  async updateOne(id: number, updateUserDto: CreateUserDto) {
     const { password, profile, ...rest } = updateUserDto;
     console.log(updateUserDto);
     const user = await this.findOne(id);

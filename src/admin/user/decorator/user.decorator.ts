@@ -1,6 +1,13 @@
 import { Roles } from '@/admin/auth/decorator/roles.decorator';
 import { UserRole } from '@/admin/auth/enum/role.enum';
-import { applyDecorators, HttpCode, HttpStatus } from '@nestjs/common';
+import { JwtAuthGuard } from '@/admin/auth/guard/jwt-auth.guard';
+import { RolesGuard } from '@/admin/auth/guard/roles.guard';
+import {
+  applyDecorators,
+  HttpCode,
+  HttpStatus,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiNotFoundResponse,
@@ -10,6 +17,8 @@ import {
 
 export function GetAllUserDecorators() {
   return applyDecorators(
+    UseGuards(JwtAuthGuard, RolesGuard),
+    Roles(UserRole.ADMIN),
     ApiBearerAuth(),
     ApiOperation({ summary: 'Get all data User' }),
     ApiOkResponse({ description: 'Success get all data User' }),

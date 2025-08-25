@@ -58,7 +58,7 @@ export class ArticleController {
   @UpdateOneArticleDecorators()
   async update(
     @Param('id') id: number,
-    @Body() body: UpdateArticleDto,
+    @Body() body: CreateArticleDto,
     @GetUser() user: User,
   ) {
     return await this.articleService.updateOne(id, body, user);

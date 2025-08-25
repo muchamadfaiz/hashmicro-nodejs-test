@@ -44,6 +44,8 @@ export function CreateOneArticleDecorators() {
 
 export function UpdateOneArticleDecorators() {
   return applyDecorators(
+    UseGuards(JwtAuthGuard, RolesGuard),
+    Roles(UserRole.ADMIN, UserRole.AUTHOR),
     ApiBearerAuth(),
     HttpCode(HttpStatus.OK),
     ApiOperation({ summary: 'Update one Article' }),
@@ -53,6 +55,8 @@ export function UpdateOneArticleDecorators() {
 
 export function DeleteArticleDecorators() {
   return applyDecorators(
+    UseGuards(JwtAuthGuard, RolesGuard),
+    Roles(UserRole.ADMIN, UserRole.AUTHOR),
     ApiBearerAuth(),
     HttpCode(HttpStatus.NO_CONTENT),
     ApiOperation({ summary: 'Delete one Article' }),

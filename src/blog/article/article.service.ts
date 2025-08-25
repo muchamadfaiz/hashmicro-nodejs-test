@@ -80,7 +80,7 @@ export class ArticleService {
     return await this.articleRepo.save(article);
   }
 
-  async updateOne(id: number, dto: UpdateArticleDto, user: User) {
+  async updateOne(id: number, dto: CreateArticleDto, user: User) {
     const article = await this.articleRepo.findOne({ where: { id } });
     if (!article) throw new NotFoundException('Article is not found');
 
