@@ -8,7 +8,7 @@ import { User } from '../user/user.entity';
 import { AUTH_MESSAGES, STATUS } from './constant/string';
 
 @ApiTags('Auth')
-@Controller('auth')
+@Controller({ path: 'auth', version: '1' })
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @LoginDecorators()
