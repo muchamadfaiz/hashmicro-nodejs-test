@@ -18,7 +18,7 @@ export class DashboardService {
     @InjectRepository(Tag)
     private readonly tagRepo: Repository<Tag>,
 
-    @InjectRepository(Tag)
+    @InjectRepository(Analyzer)
     private readonly analyzerRepo: Repository<Analyzer>,
   ) {}
   async getDashboard() {
@@ -27,6 +27,7 @@ export class DashboardService {
     const tagCount = await this.tagRepo.count();
     const analyzerCount = await this.analyzerRepo.count();
 
+    console.log({ userCount, articleCount, tagCount, analyzerCount });
     return {
       userCount,
       articleCount,
