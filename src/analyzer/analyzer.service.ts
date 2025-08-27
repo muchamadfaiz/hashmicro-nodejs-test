@@ -31,12 +31,14 @@ export class AnalyzerService {
     // const { input1, input2 } = dto;
     const input1 = dto.input1.replace(/\s/g, '');
     const input2 = dto.input2.replace(/\s/g, '');
+
+    const uniqueInput1 = Array.from(new Set(input1));
     const lengthInput1 = input1.length;
 
     let matchedCount = 0;
     const matchedChars: string[] = [];
 
-    for (const char of input1) {
+    for (const char of uniqueInput1) {
       if (input2.includes(char)) {
         matchedCount++;
         matchedChars.push(char);
