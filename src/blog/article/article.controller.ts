@@ -25,7 +25,7 @@ import { GetUser } from '@/admin/auth/decorator/get-user.decorator';
 import { User } from '@/admin/user/user.entity';
 
 @ApiTags('Article')
-@Controller({ path: 'article', version: '1' })
+@Controller({ path: 'articles', version: '1' })
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
   @Get()
