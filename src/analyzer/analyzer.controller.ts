@@ -5,7 +5,7 @@ import { MatchDto } from './dto/match.dto';
 import { GetResultCheckMatchDecorators } from './decorator/analyzer.decorator';
 
 @ApiTags('Analyzer')
-@Controller('analyzer')
+@Controller({ path: 'analyzer', version: '1' })
 export class AnalyzerController {
   constructor(private readonly analyzerService: AnalyzerService) {}
   @Post('checkMatch')
