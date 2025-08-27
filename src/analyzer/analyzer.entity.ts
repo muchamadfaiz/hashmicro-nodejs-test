@@ -26,6 +26,9 @@ export class Analyzer {
   @Column({ type: 'int', nullable: true })
   lengthInput1?: number;
 
+  @Column('simple-array', { nullable: true })
+  matchedChars?: string[];
+
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 

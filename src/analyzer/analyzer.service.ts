@@ -50,11 +50,12 @@ export class AnalyzerService {
       percentageMatchChar: parseFloat(percentageMatchChar.toFixed(2)),
       matchedCount,
       lengthInput1,
+      matchedChars,
     });
 
     const saved = await this.analyzerRepo.save(analyzer);
 
-    return saved;
+    return { ...saved };
   }
 
   async delete(id: number): Promise<Analyzer> {
