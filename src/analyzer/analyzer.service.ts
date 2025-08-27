@@ -1,9 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { MatchDto } from './dto/match.dto';
+import { Repository } from 'typeorm';
+import { Analyzer } from './analyzer.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { PaginationProvider } from '@/common/pagination/pagination.provider';
+import { PaginationQueryDto } from '@/common/pagination/dto/pagination-query.dto';
 
 @Injectable()
 export class AnalyzerService {
-  checkMatch(dto: MatchDto) {
+  constructor(
+    @InjectRepository(Analyzer)
+    private readonly analyzerRepo: Repository<Analyzer>,
+    private readonly paginationProvider: PaginationProvider,
+  ) {}
+
+  async findAll(query: PaginationQueryDto) {
+    return await this.paginationProvider.paginateQuery(
+      query,
+      this.analyzerRepo,
+    );
+  }
+
+  async findOne(id: number): Promise<Analyzer> {
+    const analyzer = await this.analyzerRepo.findOne({ where: { id } });
+    if (!analyzer) throw new NotFoundException('result not found');
+    return analyzer;
+  }
+
+  async checkMatch(dto: MatchDto) {
     // const { input1, input2 } = dto;
     const input1 = dto.input1.replace(/\s/g, '');
     const input2 = dto.input2.replace(/\s/g, '');
@@ -21,11 +45,20 @@ export class AnalyzerService {
 
     const percentageMatchChar = (matchedCount / lengthInput1) * 100;
 
-    return {
+    const analyzer = this.analyzerRepo.create({
+      ...dto,
       percentageMatchChar: parseFloat(percentageMatchChar.toFixed(2)),
-      matchedChars,
       matchedCount,
       lengthInput1,
-    };
+    });
+
+    const saved = await this.analyzerRepo.save(analyzer);
+
+    return saved;
+  }
+
+  async delete(id: number): Promise<Analyzer> {
+    const analyzer = await this.findOne(id);
+    return this.analyzerRepo.remove(analyzer);
   }
 }

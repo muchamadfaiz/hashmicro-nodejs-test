@@ -76,6 +76,9 @@ export class User {
   })
   updatedAt: Date;
 
+  @Column({ nullable: true, type: 'varchar', length: 20 })
+  noPhone?: string | null;
+
   @OneToOne(() => Profile, (profile) => profile.user, { eager: true })
   @JoinColumn()
   profile?: Profile;

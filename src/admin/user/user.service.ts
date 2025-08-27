@@ -5,10 +5,10 @@ import { User } from './user.entity';
 import { Profile } from '../profile/profile.entity';
 import { Repository } from 'typeorm';
 import { HashingProvider } from '../auth/provider/hash/hashing.provider';
-import { UpdateUserDto } from './dto/user-update.dto';
 import { UserFilterDto } from './dto/user-filter.dto';
 import { createFilter } from './helper/user.helper';
 import { PaginationProvider } from '@/common/pagination/pagination.provider';
+import { UpdateUserDto } from './dto/user-update.dto';
 
 @Injectable()
 export class UserService {
@@ -31,7 +31,7 @@ export class UserService {
   async findOne(id: number) {
     const user = await this.userRepo.findOne({
       where: { id },
-      relations: { profile: true },
+      relations: { profile: true, role: true },
     });
     if (!user) {
       throw new NotFoundException('User not found');
@@ -73,9 +73,9 @@ export class UserService {
     return await this.userRepo.save(newUser);
   }
 
-  async updateOne(id: number, updateUserDto: CreateUserDto) {
+  async updateOne(id: number, updateUserDto: UpdateUserDto) {
     const { password, profile, ...rest } = updateUserDto;
-    console.log(updateUserDto);
+
     const user = await this.findOne(id);
     console.log('PROFILE:', profile);
 

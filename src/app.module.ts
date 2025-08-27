@@ -11,6 +11,7 @@ import { AuthModule } from './admin/auth/auth.module';
 import { UserModule } from './admin/user/user.module';
 import { AnalyzerModule } from './analyzer/analyzer.module';
 import { ArticleModule } from './blog/article/article.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ArticleModule } from './blog/article/article.module';
     AnalyzerModule,
     ArticleModule,
     TagModule,
+    DashboardModule,
     PaginationModule,
   ],
   controllers: [HealthController],

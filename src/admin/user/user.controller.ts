@@ -23,6 +23,7 @@ import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { RolesGuard } from '../auth/guard/roles.guard';
 import { RoutePath } from '@/common/decorator/route-path.decorator';
 import { UserFilterDto } from './dto/user-filter.dto';
+import { UpdateUserDto } from './dto/user-update.dto';
 
 @ApiTags('User')
 @Controller({ path: 'users', version: '1' })
@@ -42,25 +43,42 @@ export class UserController {
 
   @Post()
   @CreateOneUserDecorators()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.createOne(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto) {
+    return await this.userService.createOne(createUserDto);
   }
 
   @Get(':id')
   @GetOneUserDecorators()
-  findOne(@Param('id') id: number) {
-    return this.userService.findOne(id);
+  async findOne(@Param('id') id: number, @RoutePath() routePath: string) {
+    const result = await this.userService.findOne(id);
+    return {
+      status: true,
+      message: `success return one ${routePath}`,
+      data: result,
+    };
   }
 
   @Patch(':id')
   @UpdateOneUserDecorators()
-  update(@Param('id') id: number, @Body() updateUserDto: CreateUserDto) {
-    return this.userService.updateOne(id, updateUserDto);
+  async update(
+    @Param('id') id: number,
+    @Body() updateUserDto: UpdateUserDto,
+    @RoutePath() routePath: string,
+  ) {
+    await this.userService.updateOne(id, updateUserDto);
+    return {
+      status: true,
+      message: `success update one ${routePath}`,
+    };
   }
 
   @Delete(':id')
   @DeleteUserDecorators()
-  delete(@Param('id') id: number) {
-    return this.userService.deleteOne(id);
+  async delete(@Param('id') id: number, @RoutePath() routePath: string) {
+    await this.userService.deleteOne(id);
+    return {
+      status: true,
+      message: `success delete one ${routePath}`,
+    };
   }
 }

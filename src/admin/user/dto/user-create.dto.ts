@@ -1,5 +1,5 @@
 import { CreateProfileDto } from '@/admin/profile/dto/profile-create.dto';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsEmail,
@@ -22,6 +22,11 @@ export class CreateUserDto {
   @IsNotEmpty()
   @MaxLength(24)
   username: string;
+
+  @ApiPropertyOptional({ example: '089813234567' })
+  @IsNotEmpty()
+  @MaxLength(24)
+  noPhone: string;
 
   @ApiProperty({ example: 'secret@134' })
   @IsString()
