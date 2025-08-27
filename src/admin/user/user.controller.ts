@@ -6,12 +6,12 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/user-create.dto';
-import { UpdateUserDto } from './dto/user-update.dto';
 import {
   CreateOneUserDecorators,
   DeleteUserDecorators,
@@ -21,6 +21,8 @@ import {
 } from './decorator/user.decorator';
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 import { RolesGuard } from '../auth/guard/roles.guard';
+import { RoutePath } from '@/common/decorator/route-path.decorator';
+import { UserFilterDto } from './dto/user-filter.dto';
 
 @ApiTags('User')
 @Controller({ path: 'users', version: '1' })
@@ -29,8 +31,13 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
   @Get()
   @GetAllUserDecorators()
-  findAll() {
-    return this.userService.findAll();
+  async findAll(@Query() query: UserFilterDto, @RoutePath() routePath: string) {
+    const result = await this.userService.findAll(query);
+    return {
+      status: true,
+      message: `success return all ${routePath}`,
+      ...result,
+    };
   }
 
   @Post()

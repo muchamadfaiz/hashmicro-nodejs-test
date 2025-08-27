@@ -6,11 +6,13 @@ import { User } from './user.entity';
 import { Role } from '../role/role.entity';
 import { Profile } from '../profile/profile.entity';
 import { AuthModule } from '../auth/auth.module';
+import { PaginationModule } from '@/common/pagination/pagination.module';
 
 @Module({
   providers: [UserService],
   controllers: [UserController],
   imports: [
+    PaginationModule,
     TypeOrmModule.forFeature([User, Role, Profile]),
     forwardRef(() => AuthModule),
   ],

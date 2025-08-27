@@ -6,6 +6,9 @@ import { Profile } from '../profile/profile.entity';
 import { Repository } from 'typeorm';
 import { HashingProvider } from '../auth/provider/hash/hashing.provider';
 import { UpdateUserDto } from './dto/user-update.dto';
+import { UserFilterDto } from './dto/user-filter.dto';
+import { createFilter } from './helper/user.helper';
+import { PaginationProvider } from '@/common/pagination/pagination.provider';
 
 @Injectable()
 export class UserService {
@@ -14,14 +17,15 @@ export class UserService {
     @InjectRepository(Profile)
     private readonly profileRepo: Repository<Profile>,
     private hashingProvider: HashingProvider,
+    private readonly paginationProvider: PaginationProvider,
   ) {}
-  async findAll() {
-    const users = await this.userRepo.find({
-      relations: { profile: true },
-      order: { id: 'ASC' },
-    });
-
-    return users;
+  async findAll(dto: UserFilterDto) {
+    const where = createFilter(dto);
+    return await this.paginationProvider.paginateQuery(
+      dto,
+      this.userRepo,
+      where,
+    );
   }
 
   async findOne(id: number) {
