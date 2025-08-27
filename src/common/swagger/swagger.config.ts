@@ -27,6 +27,10 @@ export const SWAGGER_CONFIG: SwaggerConfig = {
   `,
   version: '1.0',
   servers: [
-    { url: Env.domain.backend + ':' + Env.app.port, description: 'Backend' },
+    {
+      url: Env.domain.backend + ':' + Env.app.port,
+      description: 'development',
+    },
+    { url: Env.domain.backend, description: 'production' },
   ],
 };
