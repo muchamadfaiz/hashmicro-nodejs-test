@@ -76,7 +76,7 @@ export class User {
   })
   updatedAt: Date;
 
-  @OneToOne(() => Profile)
+  @OneToOne(() => Profile, (profile) => profile.user, { eager: true })
   @JoinColumn()
   profile?: Profile;
 
