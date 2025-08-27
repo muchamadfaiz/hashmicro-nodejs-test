@@ -27,12 +27,23 @@ export class DashboardService {
     const tagCount = await this.tagRepo.count();
     const analyzerCount = await this.analyzerRepo.count();
 
+    const chartData = {
+      categories: ['Artikel', 'Tag', 'Pengguna', 'Analyzer'],
+      series: [
+        {
+          name: 'Jumlah',
+          data: [articleCount, tagCount, userCount, analyzerCount],
+        },
+      ],
+    };
+
     console.log({ userCount, articleCount, tagCount, analyzerCount });
     return {
       userCount,
       articleCount,
       tagCount,
       analyzerCount,
+      chartData,
     };
   }
 }
