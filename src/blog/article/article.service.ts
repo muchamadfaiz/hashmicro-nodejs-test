@@ -112,12 +112,24 @@ export class ArticleService {
       tagIds,
     });
 
-    const final: Partial<Article> = {
-      ...base,
-      ...relation,
-    };
+    // const final: Partial<Article> = {
+    //   ...base,
+    //   ...relation,
+    // };
 
-    this.articleRepo.merge(article, final);
+    // this.articleRepo.merge(article, final);
+    // return await this.articleRepo.save(article);
+    // merge field biasa (title, content, dll)
+    this.articleRepo.merge(article, base);
+
+    // assign relasi manual supaya replace total
+    if (relation.author) {
+      article.author = relation.author;
+    }
+    if (relation.tags) {
+      article.tags = relation.tags; // ⬅️ ini penting, replace array
+    }
+
     return await this.articleRepo.save(article);
   }
 
