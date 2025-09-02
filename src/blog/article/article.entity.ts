@@ -5,14 +5,13 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
-  CreateDateColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 import { Tag } from '../tag/tag.entity';
 import { User } from '@/admin/user/user.entity';
+import { BaseEntity } from '@/common/entities/base.entity';
 
 @Entity()
-export class Article {
+export class Article extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -32,12 +31,10 @@ export class Article {
   author: User;
 
   @ManyToMany(() => Tag, (tag) => tag.articles, { cascade: true, eager: true })
-  @JoinTable()
+  @JoinTable({
+    name: 'article_tags',
+    joinColumn: { name: 'articleId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'tagId', referencedColumnName: 'id' },
+  })
   tags: Tag[];
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }

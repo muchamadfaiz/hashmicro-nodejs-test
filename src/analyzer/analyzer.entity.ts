@@ -1,13 +1,8 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { BaseEntity } from '@/common/entities/base.entity';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity({ name: 'analyzers' })
-export class Analyzer {
+export class Analyzer extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -28,10 +23,4 @@ export class Analyzer {
 
   @Column('simple-array', { nullable: true })
   matchedChars?: string[];
-
-  @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt: Date;
 }

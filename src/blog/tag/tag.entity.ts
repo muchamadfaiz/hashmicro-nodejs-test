@@ -1,16 +1,9 @@
-import {
-  Column,
-  CreateDateColumn,
-  DeleteDateColumn,
-  Entity,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Article } from '../article/article.entity';
+import { BaseEntity } from '@/common/entities/base.entity';
 
 @Entity({ name: 'tag' })
-export class Tag {
+export class Tag extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -20,21 +13,6 @@ export class Tag {
     unique: true,
   })
   name: string;
-
-  @CreateDateColumn({
-    type: 'timestamp',
-  })
-  createdAt: Date;
-
-  @UpdateDateColumn({
-    type: 'timestamp',
-  })
-  updatedAt: Date;
-
-  @DeleteDateColumn({
-    type: 'timestamp',
-  })
-  deletedAt: Date;
 
   @ManyToMany(() => Article, (article) => article.tags)
   articles: Article[];
