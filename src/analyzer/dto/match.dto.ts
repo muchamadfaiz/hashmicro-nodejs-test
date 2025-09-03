@@ -29,6 +29,6 @@ export class MatchDto {
       'Kalimat target tempat mencocokkan karakter dari input1. Akan diubah ke uppercase otomatis.',
   })
   @IsString()
-  @Transform(({ value }) => cleanString(value))
+  @Transform(({ value }) => value.replace(/\s/g, '').toUpperCase())
   input2: string;
 }
