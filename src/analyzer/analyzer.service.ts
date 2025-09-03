@@ -51,7 +51,7 @@ export class AnalyzerService {
       ...dto,
       percentageMatchChar: parseFloat(percentageMatchChar.toFixed(2)),
       matchedCount,
-      lengthInput1,
+      lengthRawInput1,
       matchedChars,
     });
 
