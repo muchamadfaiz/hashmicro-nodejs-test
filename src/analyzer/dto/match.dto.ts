@@ -4,12 +4,10 @@ import { IsString } from 'class-validator';
 
 function cleanString(input: string): string {
   return Array.from(
-    new Set(
-      input
-        .toUpperCase()
-        .replace(/\s/g, '') // regex untuk spasi
-        .replace(/[.,]/g, ''), // regex untuk titik koma
-    ),
+    input
+      .toUpperCase()
+      .replace(/\s/g, '') // regex untuk spasi
+      .replace(/[.,]/g, ''), // regex untuk titik koma
   ).join('');
 }
 
