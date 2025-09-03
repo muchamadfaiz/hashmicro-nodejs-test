@@ -33,7 +33,7 @@ export class AnalyzerService {
     // const input2 = dto.input2.replace(/\s/g, '');
 
     const uniqueInput1 = Array.from(new Set(input1));
-    const lengthRawInput1 = input1.length;
+    const lengthInput1 = input1.length;
 
     let matchedCount = 0;
     const matchedChars: string[] = [];
@@ -45,13 +45,13 @@ export class AnalyzerService {
       }
     }
 
-    const percentageMatchChar = (matchedCount / lengthRawInput1) * 100;
+    const percentageMatchChar = (matchedCount / lengthInput1) * 100;
 
     const analyzer = this.analyzerRepo.create({
       ...dto,
       percentageMatchChar: parseFloat(percentageMatchChar.toFixed(2)),
       matchedCount,
-      lengthRawInput1,
+      lengthInput1,
       matchedChars,
     });
 
